@@ -1,3 +1,4 @@
+/*
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import '../../providers/automovil_provider.dart';
@@ -41,3 +42,5 @@ class AutomovilView extends ConsumerWidget {
     );
   }
 }
+
+*/

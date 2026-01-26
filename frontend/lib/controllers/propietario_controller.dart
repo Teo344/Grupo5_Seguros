@@ -1,3 +1,4 @@
+/*
 import '../models/propietario.dart';
 import '../services/api_service.dart';
 
@@ -41,3 +42,4 @@ class PropietarioController {
     }
   }
 }
+*/

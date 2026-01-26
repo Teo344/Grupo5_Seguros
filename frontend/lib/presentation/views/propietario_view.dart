@@ -1,3 +1,4 @@
+/*
 import 'package:flutter/material.dart';
 import '../../controllers/propietario_controller.dart';
 import '../../models/propietario.dart';
@@ -41,3 +42,5 @@ class PropietarioView extends StatelessWidget {
     );
   }
 }
+
+*/

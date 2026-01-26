@@ -1,3 +1,4 @@
+/*
 import '../models/seguro.dart';
 import '../services/api_service.dart';
 
@@ -40,3 +41,4 @@ class SeguroController {
     }
   }
 }
+*/

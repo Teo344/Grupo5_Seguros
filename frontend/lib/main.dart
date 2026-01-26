@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:frontend/presentation/views/crear_poliza_page.dart';
 
-import 'presentation/views/automovil_view.dart';
 
 void main() {
   runApp(
@@ -12,18 +12,18 @@ void main() {
 }
 
 class MyApp extends StatelessWidget {
-  const MyApp({super.key});
+  const MyApp({Key? key}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
-      title: 'Automóviles App',
+      title: 'Póliza de Seguros',
       debugShowCheckedModeBanner: false,
       theme: ThemeData(
-        colorScheme: ColorScheme.fromSeed(seedColor: Colors.blue),
+        primarySwatch: Colors.teal,
         useMaterial3: true,
       ),
-      home: const AutomovilView(),
+      home: const CrearPolizaPage(),
     );
   }
 }
