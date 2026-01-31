@@ -1,0 +1,30 @@
+version: "3.8"
+
+services:
+  mysql:
+    image: mysql:8
+    container_name: mysql_poliza
+    restart: always
+    environment:
+      MYSQL_DATABASE: dbb_dto_poliza
+      MYSQL_ROOT_PASSWORD: root
+    ports:
+      - "3306:3306"
+    volumes:
+      - mysql_data:/var/lib/mysql
+
+  backend:
+    build: .
+    container_name: backend_poliza
+    restart: always
+    ports:
+      - "9090:9090"
+    environment:
+      DB_URL: jdbc:mysql://mysql:3306/dbb_dto_poliza?useSSL=false&serverTimezone=UTC
+      DB_USER: root
+      DB_PASSWORD: root
+    depends_on:
+      - mysql
+
+volumes:
+  mysql_data:
