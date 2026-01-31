@@ -12,21 +12,26 @@ services:
       - "3306:3306"
     volumes:
       - mysql_data:/var/lib/mysql
+    healthcheck:
+      test: ["CMD", "mysqladmin", "ping", "-h", "localhost"]
+      interval: 5s
+      retries: 5
+      timeout: 3s
 
-backend:
-  build: .
-  container_name: backend_poliza
-  restart: always
-  ports:
-    - "9090:9090"
-  environment:
-    DB_URL: jdbc:mysql://mysql:3306/dbb_dto_poliza?useSSL=false&serverTimezone=UTC
-    DB_USER: root
-    DB_PASSWORD: root
-  depends_on:
-    - mysql
-  command: java -Xmx256m -Xms128m -jar app.jar  # limitar memoria
-
+  backend:
+    build: .
+    container_name: backend_poliza
+    restart: on-failure
+    ports:
+      - "9090:9090"
+    environment:
+      DB_URL: jdbc:mysql://mysql:3306/dbb_dto_poliza?useSSL=false&serverTimezone=UTC
+      DB_USER: root
+      DB_PASSWORD: root
+    depends_on:
+      mysql:
+        condition: service_healthy
+    command: java -Xmx256m -Xms128m -jar app.jar  # limita memoria JVM
 
 volumes:
   mysql_data:
