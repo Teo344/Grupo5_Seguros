@@ -8,6 +8,7 @@ services:
     environment:
       MYSQL_DATABASE: dbb_dto_poliza
       MYSQL_ROOT_PASSWORD: root
+      MYSQL_MEMORY: 256M
     ports:
       - "3306:3306"
     volumes:
@@ -35,7 +36,7 @@ services:
     deploy:
       resources:
         limits:
-          memory: 600M
+          memory: 512M
           cpus: "0.5"
 
 volumes:
