@@ -6,6 +6,7 @@ import com.example.bdd_dto.repository.PropietarioRepository;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
+import java.util.Optional;
 import java.util.stream.Collectors;
 
 @Service
@@ -77,13 +78,24 @@ public class PropietarioService {
 
         return dto;
     }
-    public PropietarioDTO buscarPorNombre(String nombreCompleto) {
-        String[] partes = nombreCompleto.split(" ");
-        String nombre = partes[0];
-        String apellido = partes.length > 1 ? partes[1] : "";
 
-        Propietario propietario = propietarioRepository
-                .findByNombreAndApellido(nombre, apellido)
+    public PropietarioDTO buscarPorNombre(String nombreCompleto) {
+
+        String[] partes = nombreCompleto.trim().split(" ");
+        String nombre = partes[0];
+        String apellido = partes.length > 1 ? partes[1] : null;
+
+        Optional<Propietario> propietarioOpt;
+
+        if (apellido != null && !apellido.isEmpty()) {
+            propietarioOpt = propietarioRepository
+                    .findByNombreAndApellido(nombre, apellido);
+        } else {
+            propietarioOpt = propietarioRepository
+                    .findTopByNombreOrderByIdDesc(nombre);
+        }
+
+        Propietario propietario = propietarioOpt
                 .orElseThrow(() -> new RuntimeException("Propietario no encontrado con nombre: " + nombreCompleto));
 
         return convertirADTO(propietario);

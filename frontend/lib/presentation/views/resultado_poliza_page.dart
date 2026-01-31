@@ -11,11 +11,11 @@ class ResultadoPolizaPage extends ConsumerWidget {
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
-    final polizaAsync = ref.watch(polizaProvider(request));
+    final polizaAsync = ref.watch(crearPolizaProvider(request));
 
     return Scaffold(
       appBar: AppBar(
-        title: const Text("Resultado de la Póliza"),
+        title: const Text("Resultado de la Póliza", style: TextStyle(color: Colors.white),),
         backgroundColor: Colors.teal,
       ),
       body: polizaAsync.when(
@@ -46,7 +46,7 @@ class ResultadoPolizaPage extends ConsumerWidget {
                   _item("Accidentes", poliza.accidentes.toString()),
                   const Divider(thickness: 1),
                   _item(
-                    "Costo Total del Seguro",
+                    "Costo Total: ",
                     "\$${poliza.costoTotal.toStringAsFixed(2)}",
                     isTotal: true,
                   ),
@@ -57,7 +57,7 @@ class ResultadoPolizaPage extends ConsumerWidget {
                         backgroundColor: Colors.teal,
                       ),
                       onPressed: () => Navigator.pop(context),
-                      child: const Text("VOLVER"),
+                      child: const Text("VOLVER" ,style: TextStyle(color: Colors.white),),
                     ),
                   )
                 ],
@@ -79,14 +79,14 @@ class ResultadoPolizaPage extends ConsumerWidget {
             title,
             style: TextStyle(
               fontWeight: isTotal ? FontWeight.bold : FontWeight.normal,
-              fontSize: isTotal ? 18 : 14,
+              fontSize: isTotal ? 16 : 12,
             ),
           ),
           Text(
             value,
             style: TextStyle(
               fontWeight: isTotal ? FontWeight.bold : FontWeight.normal,
-              fontSize: isTotal ? 18 : 14,
+              fontSize: isTotal ? 16 : 12,
               color: isTotal ? Colors.teal : Colors.black,
             ),
           ),

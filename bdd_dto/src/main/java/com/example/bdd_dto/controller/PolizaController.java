@@ -2,6 +2,9 @@ package com.example.bdd_dto.controller;
 
 import com.example.bdd_dto.dto.*;
 import com.example.bdd_dto.service.*;
+
+import java.util.List;
+
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
@@ -71,5 +74,55 @@ public class PolizaController {
 
         return ResponseEntity.ok(response);
     }
+
+
+    @GetMapping("/{id}")
+public ResponseEntity<PolizaResponse> obtenerPolizaPorId(@PathVariable Long id) {
+
+    AutomovilDTO auto = automovilService.obtenerPorId(id);
+    SeguroDTO seguro = seguroService.obtenerPorAutomovilId(auto.getId());
+    PropietarioDTO propietario = propietarioService.obtenerPorId(auto.getPropietarioId());
+
+    PolizaResponse response = new PolizaResponse(
+            propietario.getNombreCompleto(),
+            auto.getModelo(),
+            auto.getValor(),
+            propietario.getEdad(),
+            auto.getAccidentes(),
+            seguro.getCostoTotal()
+    );
+
+    return ResponseEntity.ok(response);
+}
+
+
+@GetMapping("/todas")
+public ResponseEntity<List<PolizaResponse>> obtenerTodasLasPolizas() {
+
+    List<AutomovilDTO> autos = automovilService.obtenerTodos();
+
+    List<PolizaResponse> polizas = autos.stream().map(auto -> {
+
+        PropietarioDTO propietario =
+                propietarioService.obtenerPorId(auto.getPropietarioId());
+
+        SeguroDTO seguro =
+                seguroService.obtenerPorAutomovilId(auto.getId());
+
+        return new PolizaResponse(
+                propietario.getNombreCompleto(),
+                auto.getModelo(),
+                auto.getValor(),
+                propietario.getEdad(),
+                auto.getAccidentes(),
+                seguro.getCostoTotal()
+        );
+    }).toList();
+
+    return ResponseEntity.ok(polizas);
+}
+
+
+
 
 }
