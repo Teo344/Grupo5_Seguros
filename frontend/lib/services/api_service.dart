@@ -4,7 +4,7 @@ import 'package:frontend/models/poliza_response.dart';
 import 'package:http/http.dart' as http;
 
 class ApiService {
-  static const baseUrl = "http://192.168.18.12:9090/bdd_dto/api";
+  static const baseUrl = "http://3.135.242.10:9090/bdd_dto/api";
 
   Future<PolizaResponse> crearPoliza(PolizaRequest request) async {
     final response = await http.post(
