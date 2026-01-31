@@ -1,5 +1,5 @@
-# 1️⃣ Imagen base con Java
-FROM eclipse-temurin:17-jdk-alpine
+# 1️⃣ Imagen base con Java 21
+FROM eclipse-temurin:21-jdk-alpine
 
 # 2️⃣ Directorio de trabajo
 WORKDIR /app
