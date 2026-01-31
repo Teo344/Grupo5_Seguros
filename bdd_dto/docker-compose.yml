@@ -14,14 +14,14 @@ services:
       - mysql_data:/var/lib/mysql
     healthcheck:
       test: ["CMD", "mysqladmin", "ping", "-h", "localhost"]
-      interval: 5s
+      interval: 10s
       retries: 5
-      timeout: 3s
+      timeout: 5s
 
   backend:
     build: .
     container_name: backend_poliza
-    restart: on-failure
+    restart: always
     ports:
       - "9090:9090"
     environment:
@@ -31,7 +31,12 @@ services:
     depends_on:
       mysql:
         condition: service_healthy
-    command: java -Xmx256m -Xms128m -jar app.jar  # limita memoria JVM
+    command: java -Xms256m -Xmx512m -jar app.jar
+    deploy:
+      resources:
+        limits:
+          memory: 600M
+          cpus: "0.5"
 
 volumes:
   mysql_data:
