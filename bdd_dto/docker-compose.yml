@@ -26,7 +26,7 @@ services:
     ports:
       - "9090:9090"
     environment:
-      DB_URL: jdbc:mysql://mysql:3306/dbb_dto_poliza?useSSL=false&serverTimezone=UTC
+      DB_URL: jdbc:mysql://mysql:3306/dbb_dto_poliza?useSSL=false&allowPublicKeyRetrieval=true&serverTimezone=UTC
       DB_USER: root
       DB_PASSWORD: root
     depends_on:
